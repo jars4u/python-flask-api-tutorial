@@ -1,10 +1,18 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 
-@app.route('/todos', methods=['GET'])
-def hello_world():
-    return "<h1>Hello!</h1>"
+todos = [{ "label": "Mi primera tarea", "done": False }]
 
+@app.route('/todos', methods=['GET'])
+def get_todos():
+    json_todos = jsonify(todos)
+    return json_todos
+
+@app.route('/todos', methods=['POST'])
+def add_new_todo():
+    request_body = request.json
+    print("Incoming request with the following body", request_body)
+    return 'Response for the POST todo'
 
 
 
